@@ -12,11 +12,12 @@ pygame.init()
 
 
 # Створюємо вікно гри
-screen = pygame.display.set_mode((width, height), pygame.NOFRAME)
+screen = pygame.display.set_mode((600, 1000), pygame.NOFRAME) #pygame.NOFRAME
 pygame.display.set_caption("Моя перша гра")
 
+
 sound_dict = {
-    "0": pygame.mixer.Sound("music/do.mp3"),
+    "0": pygame.mixer.Sound("music/bm.wav"),
     "1": pygame.mixer.Sound("music/re.mp3"),
     "2": pygame.mixer.Sound("music/zvuk-notyi-mi.mp3"),
     "3": pygame.mixer.Sound("music/zvuk-notyi-fa.mp3"),
@@ -27,6 +28,18 @@ sound_dict = {
     "8": pygame.mixer.Sound("music/zvuk-notyi-re (1).mp3"),
     "9": pygame.mixer.Sound("music/zvuk-notyi-mi-rastyanutyiy.mp3")
 }
+# sound_dict = {
+#     "0": pygame.mixer.Sound("music/bm.wav"),
+#     "1": pygame.mixer.Sound("music/bm.wav"),
+#     "2": pygame.mixer.Sound("music/bm.wav"),
+#     "3": pygame.mixer.Sound("music/bm.wav"),
+#     "4": pygame.mixer.Sound("music/bm.wav"),
+#     "5": pygame.mixer.Sound("music/bm.wav"),
+#     "6": pygame.mixer.Sound("music/bm.wav"),
+#     "7": pygame.mixer.Sound("music/bm.wav"),
+#     "8": pygame.mixer.Sound("music/bm.wav"),
+#     "9": pygame.mixer.Sound("music/bm.wav")
+# }
 
 
 
@@ -73,9 +86,14 @@ thread1 = threading.Thread(target=update_sprits)
 thread2 = threading.Thread(target=move_border)
 
 # Запускаємо потоки
+#time.sleep(10)
 thread1.start()
 thread2.start()
 while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
 
     # if now_time*1000 - sprite_time*1000 >= 10:
     #     all_sprites.update(left_border, width)
@@ -87,7 +105,8 @@ while True:
     #     border_time = time.time()
 
     # Очистка екрану
-    screen.fill((90, 90, 90))#!!!!!!!!!!!!!
+    screen.fill((0, 0, 0))#!!!!!!!!!!!!!
+    pygame.draw.rect(screen, (90, 90, 90), (0, 200, 600, 600))
     # pygame.draw.line(screen, (255, 255, 255), [left_border, 0], [left_border, height], 3)
     # pygame.draw.line(screen, (255, 255, 255), [width, 0], [width, height], 3)
     pygame.draw.rect(screen, (0, 0, 0), (left_border, top_border, rith_border - left_border, dovn_border-50))
